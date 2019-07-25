@@ -18,11 +18,13 @@ def create_archive(path='/path/to/our/epub/directory'):
     # Add directories and 1 dir deep files to zip file
     for d in os.listdir('.'):
         p_path = os.path.join(path, d)
-        if os.path.isdir(p_path) and (d != '.vscode'):
+        if os.path.isdir(p_path) and (not d.startswith('.')):
             for root, dirs, files in os.walk(d):
                 for filename in files:
-                    print("Adding item {} to epub".format(filename))
-                    epub.write(os.path.join(root,filename), compress_type=zipfile.ZIP_DEFLATED)
+                    if not filename.startswith('.'):
+                        print("Adding item {}".format(filename))
+                        epub.write(os.path.join(root,filename), compress_type=zipfile.ZIP_DEFLATED)
+                        
 
     epub.close()
 

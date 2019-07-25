@@ -1,5 +1,6 @@
 import zipfile, os, argparse
 import subprocess
+import sys
 
 def create_archive(path='/path/to/our/epub/directory'):
     ''' Create the ZIP archive. The mimetype must be the first file and must not be compressed.'''
@@ -34,6 +35,10 @@ def run_kindlegen(path_to_kindlegen='/path/to/kindlegen/file', path_to_epub='/pa
     result = subprocess.run([path_to_kindlegen, path_to_epub], stdout=subprocess.PIPE)
     print (result.stdout.decode('utf-8'))
 
+# Guard against Py2
+if sys.version_info[0] == 2:
+    print("Need to use Python 3")
+    sys.exit()
 
 # Get working directory
 parser = argparse.ArgumentParser("epub_maker")

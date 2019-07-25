@@ -4,7 +4,7 @@ import sys
 
 def create_archive(path='/path/to/our/epub/directory'):
     ''' Create the ZIP archive. The mimetype must be the first file and must not be compressed.'''
-    epub_name = '%s.epub' % os.path.basename(path)
+    epub_name = '{}.epub'.format(os.path.basename(path))
 
     os.chdir(path)
 

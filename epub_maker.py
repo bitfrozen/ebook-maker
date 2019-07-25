@@ -6,6 +6,7 @@ def create_archive(path='/path/to/our/epub/directory'):
     ''' Create the ZIP archive. The mimetype must be the first file and must not be compressed.'''
     epub_name = '{}.epub'.format(os.path.basename(path))
 
+    # Change working dir to epub content directory
     os.chdir(path)
 
     # Open a new zipfile for writing
@@ -45,7 +46,7 @@ parser = argparse.ArgumentParser("epub_maker")
 parser.add_argument("path", help="Path to directory containing epub files", type=str)
 parser.add_argument("kindlegen", help="Path to kindlegen file", type=str)
 args = parser.parse_args()
-working_directory = args.path
+working_directory = os.path.normpath(args.path)
 kindlegen_path = args.kindlegen
 
 os.chdir(working_directory)
